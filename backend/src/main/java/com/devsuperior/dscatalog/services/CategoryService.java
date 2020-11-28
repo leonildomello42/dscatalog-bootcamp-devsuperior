@@ -17,7 +17,7 @@ import com.devsuperior.dscatalog.dto.CategoryDTO;
 import com.devsuperior.dscatalog.entities.Category;
 import com.devsuperior.dscatalog.repositories.CategoryRepository;
 import com.devsuperior.dscatalog.services.exceptions.DatabaseException;
-import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundExcepetion;
+import com.devsuperior.dscatalog.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -55,7 +55,7 @@ public class CategoryService {
 	public CategoryDTO findById(Long id) {
 		
 		Optional<Category> obj = repository.findById(id);
-		Category entity = obj.orElseThrow(() -> new ResourceNotFoundExcepetion("Entity not found"));
+		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new CategoryDTO(entity);
 		
 	}
@@ -85,7 +85,7 @@ public class CategoryService {
 		}
 		catch (EntityNotFoundException e) {
 			
-			throw new ResourceNotFoundExcepetion("Id not found " + id);
+			throw new ResourceNotFoundException("Id not found " + id);
 		}
 
 	}
@@ -98,7 +98,7 @@ public class CategoryService {
 		}
 		catch (EmptyResultDataAccessException e) {
 			
-			throw new ResourceNotFoundExcepetion("Id not found " + id);
+			throw new ResourceNotFoundException("Id not found " + id);
 		}
 		catch (DataIntegrityViolationException e ) {
 			
